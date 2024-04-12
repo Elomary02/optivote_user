@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homePageFragment"
+        android:icon="@drawable/dashboard"
+        android:title="الرئيسية" />
+    <item
+        android:id="@+id/voteFragment"
+        android:icon="@drawable/vote"
+        android:title="التصويت" />
+    <item
+        android:id="@+id/historyFragment"
+        android:icon="@drawable/history"
+        android:title="الارشيف" />
+    <item
+        android:id="@+id/personalAccountFragment"
+        android:icon="@drawable/user"
+        android:title="الحساب" />
+
+</menu>
