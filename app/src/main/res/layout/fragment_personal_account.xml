@@ -6,37 +6,50 @@
     android:layout_height="match_parent"
     tools:context=".PersonalAccountFragment">
 
-    
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="940dp"
-        android:layout_marginTop="380dp"
-        android:background="@drawable/info_shape" >
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="940dp"
+            android:layout_marginTop="356dp"
+            android:background="@drawable/info_shape"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="المعلومات الشخصية :"
+                android:textDirection="rtl"
+                android:textSize="55sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.197" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="366dp"
             android:layout_height="300dp"
-            android:layout_marginBottom="768dp"
+            android:layout_marginTop="184dp"
             android:background="@drawable/image_shape"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="معلومات شخصية :"
-            android:textDirection="rtl"
-            android:textSize="65sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:layout_constraintVertical_bias="0.047" />
+            app:layout_constraintTop_toTopOf="parent"
+
+            tools:src="@drawable/people" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
