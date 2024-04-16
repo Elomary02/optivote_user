@@ -8,7 +8,6 @@ import android.view.ViewGroup
 
 
 class VoteFragment : Fragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
