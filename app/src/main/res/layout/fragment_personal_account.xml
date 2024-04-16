@@ -160,8 +160,8 @@
                     android:text="تغيير كلمة السر"
                     android:textColor="@color/white"
                     android:textSize="30sp"
-
-                    android:backgroundTint="@color/blue"
+                    android:background="@drawable/button_shape"
+                    app:backgroundTint="@color/blue"
                     />
 
 
