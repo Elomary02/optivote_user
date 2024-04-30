@@ -9,6 +9,9 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
+
 
 class SplashScreen : AppCompatActivity() {
     private val SPLASH_DELAY: Long = 3000

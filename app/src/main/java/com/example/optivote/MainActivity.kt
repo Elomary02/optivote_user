@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+
+    override fun onCreate(savedInstanceState: Bundle?)   {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_pager1)
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.myBottomVav)
