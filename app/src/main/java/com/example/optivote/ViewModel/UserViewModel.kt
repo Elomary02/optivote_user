@@ -13,9 +13,9 @@ import javax.inject.Inject
 class UserViewModel @Inject constructor(private val userRepository: UserRepository):ViewModel(){
     private val _userInfoLiveDate = MutableLiveData<UserDto>()
     val userInfoLiveDate : LiveData<UserDto> = _userInfoLiveDate
-    fun getUserInfo(userId:String){
+    fun getUserInfo(userEmail:String){
         viewModelScope.launch {
-            val result = userRepository.getUserInfo(userId)
+            val result = userRepository.getUserInfo(userEmail)
             _userInfoLiveDate.postValue(result)
         }
     }

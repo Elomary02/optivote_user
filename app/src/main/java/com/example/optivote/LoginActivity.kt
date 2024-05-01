@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
                             viewModel.test.observe(this@LoginActivity, Observer { email->
                                 Log.d("userInfo","current user email $email")
                             })
-                            viewModel.getCurrentUserId()
+                            viewModel.getCurrentUserEmail()
                         }else{
                             Log.d("LoginActivity", "Sign-in failed")
                         }

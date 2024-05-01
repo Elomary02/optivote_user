@@ -8,11 +8,11 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class UserRepositoryImp @Inject constructor(private val auth:Auth ,private val postgrest: Postgrest) : UserRepository {
-    override suspend fun getUserInfo(userId: String): UserDto {
+    override suspend fun getUserInfo(userEmail: String): UserDto {
         return withContext(Dispatchers.IO){
             postgrest.from("user").select{
                 filter {
-                    eq("signInId",userId)
+                    eq("email",userEmail)
                 }
             }.decodeSingle<UserDto>()
         }

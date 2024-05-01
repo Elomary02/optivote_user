@@ -37,9 +37,9 @@ class SignInViewModel @Inject constructor( private val authenticationRepository:
                 }
         }
     }
-    fun getCurrentUserId(){
+    fun getCurrentUserEmail(){
         viewModelScope.launch {
-            val fetchedResult = authenticationRepository.getCurrentUserId()
+            val fetchedResult = authenticationRepository.getCurrentUserEmail()
             _test.postValue(fetchedResult)
         }
     }

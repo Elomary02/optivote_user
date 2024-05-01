@@ -20,7 +20,7 @@ class PersonalAccountFragment : Fragment() {
     private val binding get() = _binding!!
     private val signInViewModel : SignInViewModel by viewModels()
     private val userViewModel : UserViewModel by viewModels()
-    private var currentUserId : String? = null
+    private var currentUserEmail : String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,14 +30,14 @@ class PersonalAccountFragment : Fragment() {
         val view = binding.root
 
 
-        signInViewModel.test.observe(viewLifecycleOwner) { id ->
-            currentUserId = id
-            Log.d("userInfo", "current user email $id")
-            currentUserId?.let {
+        signInViewModel.test.observe(viewLifecycleOwner) { email ->
+            currentUserEmail = email
+            Log.d("userInfo", "current user email $email")
+            currentUserEmail?.let {
                 userViewModel.getUserInfo(it)
             }
         }
-        signInViewModel.getCurrentUserId()
+        signInViewModel.getCurrentUserEmail()
 
         userViewModel.userInfoLiveDate.observe(viewLifecycleOwner){userIn->
             binding.nameTv.text = userIn.name
