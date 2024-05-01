@@ -1,6 +1,8 @@
 package com.example.optivote.ViewModel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.optivote.repository.AuthenticationRepository
@@ -12,6 +14,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 @HiltViewModel
 class SignInViewModel @Inject constructor( private val authenticationRepository: AuthenticationRepository):ViewModel() {
+
+    private val _test = MutableLiveData<String>()
+    val test : LiveData<String> = _test
 
     private val _signInState = MutableStateFlow<SignInState>(SignInState.Initial)
     val signInState: StateFlow<SignInState> = _signInState
@@ -30,6 +35,12 @@ class SignInViewModel @Inject constructor( private val authenticationRepository:
                 }catch (e:Exception){
                     _signInState.value = SignInState.Error("Login Error")
                 }
+        }
+    }
+    fun getCurrentUserId(){
+        viewModelScope.launch {
+            val fetchedResult = authenticationRepository.getCurrentUserId()
+            _test.postValue(fetchedResult)
         }
     }
 }

@@ -67,6 +67,7 @@
 
 
                     <TextView
+                        android:id="@+id/nameTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -93,6 +94,7 @@
 
 
                     <TextView
+                        android:id="@+id/emailTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -119,6 +121,7 @@
 
 
                     <TextView
+                        android:id="@+id/phoneTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -145,6 +148,7 @@
 
 
                     <TextView
+                        android:id="@+id/passwordTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"

@@ -18,4 +18,8 @@ class AuthenticationRepositoryImpl @Inject constructor(private val auth:Auth) : 
         }
     }
 
+    override suspend fun getCurrentUserId(): String {
+        return auth.retrieveUserForCurrentSession(updateSession = true).id
+    }
+
 }

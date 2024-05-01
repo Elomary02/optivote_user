@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.optivote.ViewModel.SignInViewModel
@@ -40,8 +41,11 @@ class LoginActivity : AppCompatActivity() {
                 viewModel.onSignIn(myEmail,myPassword)
 
 
+
+
         }
         observeSignInState()
+
 
     }
     private fun observeSignInState(){
@@ -53,6 +57,10 @@ class LoginActivity : AppCompatActivity() {
                             Log.d("LoginActivity", "Sign-In success")
                             val intent = Intent(this@LoginActivity,MainActivity::class.java)
                             startActivity(intent)
+                            viewModel.test.observe(this@LoginActivity, Observer { email->
+                                Log.d("userInfo","current user email $email")
+                            })
+                            viewModel.getCurrentUserId()
                         }else{
                             Log.d("LoginActivity", "Sign-in failed")
                         }
