@@ -63,6 +63,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.51.1")
     annotationProcessor ("com.google.dagger:hilt-compiler:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    implementation ("com.squareup.picasso:picasso:2.71828")
 }
 kapt {
     correctErrorTypes = true

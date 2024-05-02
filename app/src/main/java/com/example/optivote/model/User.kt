@@ -5,5 +5,5 @@ class User (val id : Int,
             val email:String,
             val phone:String,
             val password:String,
-            val image:Int,
+            val image:String,
             val signInId:String)

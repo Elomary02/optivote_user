@@ -7,11 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.example.optivote.ViewModel.SignInViewModel
 import com.example.optivote.ViewModel.UserViewModel
-import com.example.optivote.databinding.FragmentHistoryDetailsBinding
 import com.example.optivote.databinding.FragmentPersonalAccountBinding
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,11 +44,19 @@ class PersonalAccountFragment : Fragment() {
             binding.phoneTv.text = userIn.phone
             binding.passwordTv.text = userIn.password
 
+            val imgUrl = buildImageUrl(userIn.image)
+
+            Picasso.get().load(imgUrl).into(binding.profileImageView)
+            Log.d("image url",imgUrl)
+
         }
 
 
         return view
 
+    }
+    private fun buildImageUrl(imageUrl: String): String {
+        return imageUrl.replace("http://127.0.0.1", "http://192.168.1.2")
     }
 
 
