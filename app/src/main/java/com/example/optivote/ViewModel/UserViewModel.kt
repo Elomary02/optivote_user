@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 @HiltViewModel
+//same here we use this annotation so we can inject this viewmodel in others
 class UserViewModel @Inject constructor(private val userRepository: UserRepository):ViewModel(){
     private val _userInfoLiveDate = MutableLiveData<UserDto>()
     val userInfoLiveDate : LiveData<UserDto> = _userInfoLiveDate

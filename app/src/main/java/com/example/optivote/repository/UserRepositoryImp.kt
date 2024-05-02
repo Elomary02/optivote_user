@@ -11,6 +11,7 @@ class UserRepositoryImp @Inject constructor(private val auth:Auth ,private val p
     override suspend fun getUserInfo(userEmail: String): UserDto {
         return withContext(Dispatchers.IO){
             postgrest.from("user").select{
+                //select where signInId = userId
                 filter {
                     eq("email",userEmail)
                 }
