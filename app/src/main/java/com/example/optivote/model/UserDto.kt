@@ -10,4 +10,5 @@ data class UserDto (val id : Int,
                val password:String,
                val image:String,
                val signInId:String
+
 )

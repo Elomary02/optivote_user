@@ -57,6 +57,7 @@ class PersonalAccountFragment : Fragment() {
     }
     private fun buildImageUrl(imageUrl: String): String {
         return imageUrl.replace("http://127.0.0.1", "http://192.168.1.2")
+
     }
 
 
