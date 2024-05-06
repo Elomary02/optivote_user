@@ -10,7 +10,7 @@
         android:icon="@drawable/vote"
         android:title="التصويت" />
     <item
-        android:id="@+id/historyFragment"
+        android:id="@+id/historyDetails"
         android:icon="@drawable/history"
         android:title="الارشيف" />
     <item

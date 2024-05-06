@@ -4,6 +4,8 @@ import com.example.optivote.repository.AuthenticationRepository
 import com.example.optivote.repository.AuthenticationRepositoryImpl
 import com.example.optivote.repository.UserRepository
 import com.example.optivote.repository.UserRepositoryImp
+import com.example.optivote.repository.VoteRecordRepository
+import com.example.optivote.repository.VoteRecordRepositoryImp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,4 +20,6 @@ object AppModule {
     fun provideLoginRepesetory(auth:Auth): AuthenticationRepository = AuthenticationRepositoryImpl(auth)
     @Provides
     fun provideUserRepository(auth: Auth,postgrest:Postgrest) : UserRepository = UserRepositoryImp(auth,postgrest)
+    @Provides
+    fun provideVoteRecordRepository(auth: Auth,postgrest:Postgrest) : VoteRecordRepository = VoteRecordRepositoryImp(auth, postgrest)
 }

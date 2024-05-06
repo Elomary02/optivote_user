@@ -20,14 +20,14 @@ object SupabaseModule{
     @Singleton
     fun provideSupabaseClient(): SupabaseClient{
         return createSupabaseClient(
-            supabaseUrl  = "http://192.168.169.128:54321",
+            supabaseUrl  = "http://192.168.1.2:54321",
             supabaseKey  = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0"
         ){
             install(Postgrest)
             install(Auth){
                 flowType = FlowType.PKCE
                 scheme="http"
-                host="192.168.169.128"
+                host="192.168.1.2"
 
             }
         }

@@ -22,4 +22,5 @@ class AuthenticationRepositoryImpl @Inject constructor(private val auth:Auth) : 
         return auth.retrieveUserForCurrentSession(updateSession = true).email.toString()
     }
 
+
 }

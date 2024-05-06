@@ -21,11 +21,7 @@ class HistoryFragment : Fragment() {
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        /*BottomSheetBehavior.from(binding.sheets).apply {
-            peekHeight = 50
-            this.state = STATE_COLLAPSED
-        }
-        binding.sheets.elevation = resources.getDimension(R.dimen.bottom_sheet_elevation)*/
+
         return view
 
 

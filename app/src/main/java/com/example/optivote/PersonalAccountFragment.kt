@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import com.example.optivote.ViewModel.SignInViewModel
 import com.example.optivote.ViewModel.UserViewModel
 import com.example.optivote.databinding.FragmentPersonalAccountBinding
+import com.example.optivote.model.UserInInfo
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,34 +30,18 @@ class PersonalAccountFragment : Fragment() {
         val view = binding.root
 
 
-        signInViewModel.test.observe(viewLifecycleOwner) { email ->
-            currentUserEmail = email
-            Log.d("userInfo", "current user email $email")
-            currentUserEmail?.let {
-                userViewModel.getUserInfo(it)
-            }
-        }
-        signInViewModel.getCurrentUserEmail()
 
-        userViewModel.userInfoLiveDate.observe(viewLifecycleOwner){userIn->
-            binding.nameTv.text = userIn.name
-            binding.emailTv.text = userIn.email
-            binding.phoneTv.text = userIn.phone
-            binding.passwordTv.text = userIn.password
 
-            val imgUrl = buildImageUrl(userIn.image)
 
+            binding.nameTv.text = UserInInfo.name
+            binding.emailTv.text = UserInInfo.email
+            binding.phoneTv.text = UserInInfo.phone
+            binding.passwordTv.text = UserInInfo.password
+
+            val imgUrl = UserInInfo.image?.let { UserInInfo.buildImageUrl(it) }
             Picasso.get().load(imgUrl).into(binding.profileImageView)
-            Log.d("image url",imgUrl)
-
-        }
-
 
         return view
-
-    }
-    private fun buildImageUrl(imageUrl: String): String {
-        return imageUrl.replace("http://127.0.0.1", "http://192.168.1.2")
 
     }
 

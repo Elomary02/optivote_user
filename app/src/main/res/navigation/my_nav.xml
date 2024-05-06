@@ -25,4 +25,9 @@
         android:name="com.example.optivote.VoteFragment"
         android:label="fragment_vote"
         tools:layout="@layout/fragment_vote" />
+    <fragment
+        android:id="@+id/historyDetails"
+        android:name="com.example.optivote.HistoryDetails"
+        android:label="fragment_history_details"
+        tools:layout="@layout/fragment_history_details" />
 </navigation>

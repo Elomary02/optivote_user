@@ -1,16 +1,30 @@
 package com.example.optivote
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.optivote.ViewModel.SignInViewModel
+import com.example.optivote.ViewModel.VoteRecordViewModel
+import com.example.optivote.adapters.HistoryDetailsAdapter
 import com.example.optivote.databinding.FragmentHistoryDetailsBinding
+import com.example.optivote.model.UserInInfo
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
+import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HistoryDetails : Fragment() {
     private var _binding: FragmentHistoryDetailsBinding? = null
+    private val signInViewModel: SignInViewModel by viewModels()
+    private val voteRecordViewModel: VoteRecordViewModel by viewModels()
+
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -25,10 +39,100 @@ class HistoryDetails : Fragment() {
             this.state = STATE_COLLAPSED
         }
         binding.sheets.elevation = resources.getDimension(R.dimen.bottom_sheet_elevation)
+        voteRecordViewModel.voteLiveDate.observe(viewLifecycleOwner) { voteData ->
+            binding.voteTitle.text = voteData?.title
+            binding.voteContent.text = voteData?.content
+
+        }
+        voteRecordViewModel.getVoteByCode(123456)
+
+
+
+        voteRecordViewModel.agreedCountLiveData.observe(viewLifecycleOwner) { count ->
+            Log.d("agreed", "$count")
+            binding.agreeProgressBar.progress = count
+            binding.AgreeCountTv.text = "$count P"
+        }
+        voteRecordViewModel.disagreedCountLiveData.observe(viewLifecycleOwner) { count ->
+            Log.d("disagreed", "$count")
+            binding.DisagreeProgressBar.progress = count
+            binding.DisagreeCountTv.text = "$count P"
+        }
+        voteRecordViewModel.neutralCountLiveData.observe(viewLifecycleOwner) { count ->
+            Log.d("neutral", "$count")
+            binding.NeutralProgressBar.progress = count
+            binding.NeutralCountTv.text = "$count P"
+        }
+
+
+        voteRecordViewModel.totalCountLiveData.observe(viewLifecycleOwner) { count ->
+            binding.agreeProgressBar.max = count
+            binding.DisagreeProgressBar.max = count
+            binding.NeutralProgressBar.max = count
+        }
+
+
+        var recyclerView : RecyclerView = binding.OthersRV
+        var adapter : HistoryDetailsAdapter = HistoryDetailsAdapter()
+
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
+
+        voteRecordViewModel.voteRecordsLiveDate.observe(viewLifecycleOwner){
+            voteRecords->
+            val filteredList = voteRecords?.filter { it?.user?.id != UserInInfo.id }
+            voteRecords?.filter { it?.user?.id == UserInInfo.id }?.
+            map {
+                if (it != null) {
+                    binding.currentUserName.text = it.user?.name ?: ""
+                    binding.currentUserDecision.text = it.decision
+                    Picasso.get().load(it.user?.image?.let { UserInInfo.buildImageUrl(it) }).
+                    into(binding.currentUserImg)
+                }
+
+            }
+
+            adapter.submitList(filteredList)
+        }
+        voteRecordViewModel.getVotRecords(123456)
+
+
+
+
+
+
         return view
 
 
     }
+    /*fun getVoteRecords(code : Int) {
+        val agreedUsers = mutableListOf<VoteRecordDto>()
+        val disagreedUsers = mutableListOf<VoteRecordDto>()
+        val neutralUsers = mutableListOf<VoteRecordDto>()
+
+        voteRecordViewModel.voteRecordsLiveDate.observe(viewLifecycleOwner){
+                voteData->
+            if (voteData != null) {
+                for (data in voteData){
+                    if (data != null) {
+                        if (data.decision == "ok"){
+                            agreedUsers.add(data)
+                        }else if (data.decision == "no"){
+                            disagreedUsers.add(data)
+                        }else{
+                            neutralUsers.add(data)
+                        }
+
+                    }
+                }
+
+            }
+            Log.d("agreed","$agreedUsers")
+            Log.d("disagreed","$disagreedUsers")
+            Log.d("neutral","$neutralUsers")
+        }
+        voteRecordViewModel.getVotRecords(code)
+    }*/
 
 
 }

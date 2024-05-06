@@ -11,6 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.optivote.ViewModel.SignInViewModel
+import com.example.optivote.ViewModel.UserViewModel
+import com.example.optivote.model.UserInInfo
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.coroutineScope
 import javax.inject.Inject
@@ -23,6 +26,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var EmailEt : EditText
     private lateinit var PasswordEt:EditText
     private val viewModel:SignInViewModel by viewModels()
+    private val userViewModel : UserViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,12 +43,9 @@ class LoginActivity : AppCompatActivity() {
                 val myEmail = EmailEt.text.toString()
                 val myPassword = PasswordEt.text.toString()
                 viewModel.onSignIn(myEmail,myPassword)
-
-
-
-
         }
         observeSignInState()
+
 
 
     }
@@ -55,12 +56,29 @@ class LoginActivity : AppCompatActivity() {
                     is SignInViewModel.SignInState.Success->{
                         if (state.success){
                             Log.d("LoginActivity", "Sign-In success")
-                            val intent = Intent(this@LoginActivity,MainActivity::class.java)
-                            startActivity(intent)
+
                             viewModel.test.observe(this@LoginActivity, Observer { email->
+                                userViewModel.getUserInfo(email)
                                 Log.d("userInfo","current user email $email")
+                                userViewModel.userInfoLiveDate.observe(this@LoginActivity){userIn->
+                                    UserInInfo.id = userIn.id!!
+                                    UserInInfo.email = userIn.email.toString()
+                                    UserInInfo.phone = userIn.phone.toString()
+                                    UserInInfo.name = userIn.name.toString()
+                                    UserInInfo.password = userIn.password.toString()
+                                    UserInInfo.signInId = userIn.signInId.toString()
+                                    UserInInfo.image = userIn.image.toString()
+                                    Log.d("userInName","${UserInInfo.name}")
+                                    val intent = Intent(this@LoginActivity,MainActivity::class.java)
+                                    startActivity(intent)
+                                }
                             })
+
+
                             viewModel.getCurrentUserEmail()
+
+
+
                         }else{
                             Log.d("LoginActivity", "Sign-in failed")
                         }
