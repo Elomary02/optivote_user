@@ -1,5 +1,6 @@
 package com.example.optivote.repository
 
+import android.util.Log
 import io.github.jan.supabase.gotrue.Auth
 import io.github.jan.supabase.gotrue.providers.builtin.Email
 import io.github.jan.supabase.gotrue.providers.builtin.Phone
@@ -20,6 +21,16 @@ class AuthenticationRepositoryImpl @Inject constructor(private val auth:Auth) : 
 
     override suspend fun getCurrentUserEmail(): String {
         return auth.retrieveUserForCurrentSession(updateSession = true).email.toString()
+    }
+    //implementation of logout function
+    override suspend fun logout(): Boolean {
+        return try {
+            auth.signOut()
+            true
+        } catch (e: Exception) {
+            Log.e("LogoutError", "Failed to log out", e)
+            false
+        }
     }
 
 

@@ -14,7 +14,7 @@
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="940dp"
-            android:layout_marginTop="356dp"
+            android:layout_marginTop="336dp"
             android:background="@drawable/info_shape"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,6 +39,7 @@
                 app:layout_constraintVertical_bias="0.174" />
 
             <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layoutDirection="rtl"
@@ -134,7 +135,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="55dp"
+                    android:layout_marginBottom="50dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingHorizontal="50dp">
@@ -157,28 +158,29 @@
                         tools:text="********aa" />
 
                 </RelativeLayout>
+
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:background="@drawable/button_shape"
                     android:text="تغيير كلمة السر"
                     android:textColor="@color/white"
                     android:textSize="30sp"
-                    android:background="@drawable/button_shape"
-                    app:backgroundTint="@color/blue"
-                    />
+                    app:backgroundTint="@color/blue" />
 
 
             </LinearLayout>
 
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.imageview.ShapeableImageView
-
-            android:id="@+id/profileImageView"
+            android:id="@+id/imageView"
             android:layout_width="300dp"
             android:layout_height="300dp"
-            android:layout_marginTop="184dp"
+            android:layout_marginTop="174dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -186,6 +188,28 @@
             app:shapeAppearanceOverlay="@style/roundedImageView"
 
             tools:src="@drawable/profile" />
+        <ImageView
+            android:layout_width="60dp"
+            android:id="@+id/add_imageBtn"
+            android:layout_height="60dp"
+            android:src="@drawable/add_img"
+            app:layout_constraintEnd_toEndOf="@id/imageView"
+            app:layout_constraintBottom_toBottomOf="@id/imageView"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/logoutBtn"
+            android:src="@drawable/logout_icon"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.062"
+            android:backgroundTint="#00FFFFFF"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
