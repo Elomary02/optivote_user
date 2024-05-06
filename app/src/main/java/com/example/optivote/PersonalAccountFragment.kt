@@ -1,5 +1,8 @@
 package com.example.optivote
 
+import android.app.AlertDialog
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -41,8 +44,35 @@ class PersonalAccountFragment : Fragment() {
             val imgUrl = UserInInfo.image?.let { UserInInfo.buildImageUrl(it) }
             Picasso.get().load(imgUrl).into(binding.profileImageView)
 
+            binding.logoutBtn.setOnClickListener {
+            showLogoutConfirmationDialog()
+             }
+
         return view
 
+    }
+    private fun showLogoutConfirmationDialog() {
+        val alertDialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
+            .setTitle("تأكيد الخروج")
+            .setMessage("هل أنت متأكد أنك تريد تسجيل الخروج؟")
+            .setPositiveButton("تسجيل خروج", null)
+            .setNegativeButton("إلغاء", null)
+            .create()
+
+        alertDialog.setOnShowListener {
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#214372"))
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#214372"))
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                // Handle positive button click
+                val intent = Intent(activity, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                activity?.finish()
+            }
+        }
+
+        alertDialog.window?.setBackgroundDrawableResource(R.drawable.dialog_background)
+        alertDialog.show()
     }
 
 
