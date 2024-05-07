@@ -7,5 +7,6 @@ import com.example.optivote.model.VoteRecordDto
 interface VoteRecordRepository {
     suspend fun getVoteByCode(code: Int): VoteDto?
     suspend fun getVoteRecords(voteCode:Int):List<VoteRecordDto>?
+    suspend fun getAllVotes():List<VoteDto>?
 
 }

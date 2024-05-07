@@ -42,5 +42,16 @@ class VoteRecordRepositoryImp @Inject constructor(private val auth: Auth, privat
         }
     }
 
+    override suspend fun getAllVotes(): List<VoteDto>? {
+        return try {
+            withContext(Dispatchers.IO){
+                val allVotes = postgrest.from("vote").select(Columns.raw("code, title, date,status")).decodeList<VoteDto>()
+                allVotes
+            }
+        }catch (e:Exception){
+            null
+        }
+    }
+    }
 
-}
+

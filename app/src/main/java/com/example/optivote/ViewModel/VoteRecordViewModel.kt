@@ -31,6 +31,9 @@ class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: 
     private val _totalCountLiveData = MutableLiveData<Int>()
     val totalCountLiveData: LiveData<Int> = _totalCountLiveData
 
+    private val _allVotesLiveData = MutableLiveData<List<VoteDto?>?>()
+    val allVotesLiveData : MutableLiveData<List<VoteDto?>?> = _allVotesLiveData
+
     /*private val _currentUserDecisionLiveData = MutableLiveData<VoteRecordDto?>()
     val currentUserDecisionLiveData: MutableLiveData<VoteRecordDto?> = _currentUserDecisionLiveData*/
 
@@ -72,6 +75,12 @@ class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: 
         _disagreedCountLiveData.postValue(disagreed)
         _neutralCountLiveData.postValue(neutral)
         _totalCountLiveData.postValue(total)
+    }
+    fun getAllVotes(){
+        viewModelScope.launch {
+            val results = voteRecordRepository.getAllVotes()
+            _allVotesLiveData.postValue(results)
+        }
     }
 
     /*fun currentUserDecision(voteData: List<VoteRecordDto?>?, currentUserId: Int){
