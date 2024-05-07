@@ -1,9 +1,8 @@
 package com.example.optivote.repository
 
-import android.util.Log
-import com.example.optivote.model.UserDto
 import com.example.optivote.model.VoteDto
 import com.example.optivote.model.VoteRecordDto
+import com.example.optivote.model.decisionToSend
 import io.github.jan.supabase.gotrue.Auth
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.query.Columns
@@ -42,5 +41,17 @@ class VoteRecordRepositoryImp @Inject constructor(private val auth: Auth, privat
         }
     }
 
+
+    override suspend fun submitVote(voteRecord: decisionToSend): Boolean {
+        return try {
+            withContext(Dispatchers.IO) {
+                postgrest.from("decision").insert(voteRecord)
+                true
+            }
+            true
+        } catch (e: java.lang.Exception) {
+            throw e
+        }
+    }
 
 }

@@ -20,9 +20,28 @@
             android:textColor="@color/black"
             android:layout_marginTop="50dp"
             android:gravity="top|center"/>
+
         <TextView
+            android:id="@+id/voteTitle"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="70dp"
+            android:layout_marginHorizontal="60dp"
+            android:layout_marginTop="50dp"
+            android:elevation="15dp"
+            android:translationZ="20dp"
+            android:gravity="center"
+            android:paddingHorizontal="30dp"
+            android:textDirection="rtl"
+            android:background="@drawable/loginedittextitems"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            tools:text="لوريم إيبسوم  ودور النشر."
+            android:textSize="40sp"/>
+
+        <TextView
+            android:id="@+id/voteContent"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
             android:layout_marginHorizontal="60dp"
             android:layout_marginTop="50dp"
             android:elevation="15dp"
@@ -33,15 +52,16 @@
             android:background="@drawable/loginedittextitems"
             android:textAlignment="center"
             tools:text="لوريم إيبسوم(Lorem Ipsum) هو ببساطة نص شكلي ويُستخدم في صناعات المطابع ودور النشر."
-            android:textSize="40sp"
-            />
+            android:textSize="40sp"/>
         <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_marginTop="70dp"
             android:layout_width="match_parent"
             android:layoutDirection="ltr"
             android:layout_marginHorizontal="40dp"
             android:layout_height="wrap_content">
             <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/with"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -57,6 +77,7 @@
                 android:background="@drawable/loginedittextitems"
                 />
             <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/against"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -70,6 +91,7 @@
                 android:background="@drawable/loginedittextitems"
                 />
             <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/neutral"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -84,6 +106,7 @@
                 />
         </RadioGroup>
         <Button
+            android:id="@+id/submitBtn"
             android:layout_width="500dp"
             android:layout_height="wrap_content"
             android:padding="20dp"

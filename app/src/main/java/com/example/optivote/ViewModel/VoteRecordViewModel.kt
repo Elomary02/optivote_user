@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.optivote.model.VoteDto
 import com.example.optivote.model.VoteRecordDto
+import com.example.optivote.model.decisionToSend
 import com.example.optivote.repository.VoteRecordRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -15,7 +16,6 @@ import javax.inject.Inject
 class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: VoteRecordRepository): ViewModel() {
     private val _voteLiveDate = MutableLiveData<VoteDto?>()
     val voteLiveDate : MutableLiveData<VoteDto?> = _voteLiveDate
-
     private val _voteRecordsLiveDate = MutableLiveData<List<VoteRecordDto?>?>()
     val voteRecordsLiveDate : MutableLiveData<List<VoteRecordDto?>?> = _voteRecordsLiveDate
 
@@ -30,6 +30,20 @@ class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: 
 
     private val _totalCountLiveData = MutableLiveData<Int>()
     val totalCountLiveData: LiveData<Int> = _totalCountLiveData
+
+    fun submitVote(decision: String, user: Int, vote: Long) {
+        viewModelScope.launch {
+            val voteRecord = decisionToSend(
+                decision = decision,
+                voteIdFk = vote,
+                userIdFk = user
+            )
+            voteRecordRepository.submitVote(voteRecord)
+        }
+    }
+
+
+
 
     /*private val _currentUserDecisionLiveData = MutableLiveData<VoteRecordDto?>()
     val currentUserDecisionLiveData: MutableLiveData<VoteRecordDto?> = _currentUserDecisionLiveData*/
@@ -60,7 +74,7 @@ class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: 
         var neutral = 0
         var total = 0
         voteData?.forEach {
-            data->
+                data->
             when(data.decision){
                 "موافق" -> agreed++
                 "رافض" -> disagreed++
@@ -83,7 +97,6 @@ class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: 
             }
         }
     }*/
-
 
 
 }

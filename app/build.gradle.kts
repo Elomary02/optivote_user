@@ -4,6 +4,7 @@ plugins {
     kotlin("plugin.serialization") version "1.9.0"
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    id("androidx.navigation.safeargs")
 }
 
 android {
@@ -29,6 +30,7 @@ android {
             )
         }
     }
+
     android {
         buildFeatures {
             viewBinding = true
