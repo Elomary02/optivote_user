@@ -54,4 +54,16 @@ class VoteRecordRepositoryImp @Inject constructor(private val auth: Auth, privat
     }
     }
 
+    override suspend fun submitVote(voteRecord: decisionToSend): Boolean {
+        return try {
+            withContext(Dispatchers.IO) {
+                postgrest.from("decision").insert(voteRecord)
+                true
+            }
+            true
+        } catch (e: java.lang.Exception) {
+            throw e
+        }
+    }
 
+}

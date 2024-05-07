@@ -31,6 +31,20 @@ class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: 
     private val _totalCountLiveData = MutableLiveData<Int>()
     val totalCountLiveData: LiveData<Int> = _totalCountLiveData
 
+    fun submitVote(decision: String, user: Int, vote: Long) {
+        viewModelScope.launch {
+            val voteRecord = decisionToSend(
+                decision = decision,
+                voteIdFk = vote,
+                userIdFk = user
+            )
+            voteRecordRepository.submitVote(voteRecord)
+        }
+    }
+
+
+
+
     private val _allVotesLiveData = MutableLiveData<List<VoteDto?>?>()
     val allVotesLiveData : MutableLiveData<List<VoteDto?>?> = _allVotesLiveData
 

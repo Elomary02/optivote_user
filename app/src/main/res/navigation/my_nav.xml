@@ -9,7 +9,13 @@
         android:id="@+id/homePageFragment"
         android:name="com.example.optivote.HomePageFragment"
         android:label="fragment_home_page"
-        tools:layout="@layout/fragment_home_page" />
+        tools:layout="@layout/fragment_home_page" >
+
+        <action
+            android:id="@+id/action_homePageFragment_to_voteFragment"
+            app:destination="@id/voteFragment" />
+
+    </fragment>
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.example.optivote.HistoryFragment"
@@ -24,7 +30,12 @@
         android:id="@+id/voteFragment"
         android:name="com.example.optivote.VoteFragment"
         android:label="fragment_vote"
-        tools:layout="@layout/fragment_vote" />
+        tools:layout="@layout/fragment_vote" >
+
+        <argument
+            android:name="voteData"
+            app:argType="com.example.optivote.model.VoteDto" />
+    </fragment>
     <fragment
         android:id="@+id/historyDetails"
         android:name="com.example.optivote.HistoryDetails"
