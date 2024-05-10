@@ -66,6 +66,7 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
     implementation ("com.squareup.picasso:picasso:2.8")
+    implementation("io.github.jan-tennert.supabase:realtime-kt:2.4.0")
 }
 kapt {
     correctErrorTypes = true
