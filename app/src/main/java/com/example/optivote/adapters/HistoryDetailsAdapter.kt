@@ -55,7 +55,7 @@ class HistoryDetailsAdapter : RecyclerView.Adapter<HistoryDetailsAdapter.VoteRec
     }
 
     private fun buildImageUrl(imageUrl: String): String {
-        return imageUrl.replace("http://127.0.0.1", "http://192.168.1.2")
+        return imageUrl.replace("http://127.0.0.1", "http://192.168.0.94")
     }
 
 }
