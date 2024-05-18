@@ -13,12 +13,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: VoteRecordRepository): ViewModel() {
+class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: VoteRecordRepository) :
+    ViewModel() {
     private val _voteLiveDate = MutableLiveData<VoteDto?>()
-    val voteLiveDate : MutableLiveData<VoteDto?> = _voteLiveDate
+    val voteLiveDate: MutableLiveData<VoteDto?> = _voteLiveDate
 
     private val _voteRecordsLiveDate = MutableLiveData<List<VoteRecordDto?>?>()
-    val voteRecordsLiveDate : MutableLiveData<List<VoteRecordDto?>?> = _voteRecordsLiveDate
+    val voteRecordsLiveDate: MutableLiveData<List<VoteRecordDto?>?> = _voteRecordsLiveDate
 
     private val _agreedCountLiveData = MutableLiveData<Int>()
     private val _disagreedCountLiveData = MutableLiveData<Int>()
@@ -33,7 +34,11 @@ class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: 
     val totalCountLiveData: LiveData<Int> = _totalCountLiveData
 
     private val _allVotesLiveData = MutableLiveData<List<VoteDto?>?>()
-    val allVotesLiveData : MutableLiveData<List<VoteDto?>?> = _allVotesLiveData
+    val allVotesLiveData: MutableLiveData<List<VoteDto?>?> = _allVotesLiveData
+
+
+    private val _recentVotesLiveData = MutableLiveData<List<VoteDto?>?>()
+    val recentVotesLiveData: MutableLiveData<List<VoteDto?>?> = _recentVotesLiveData
 
     fun submitVote(decision: String, user: Int, vote: Long) {
         viewModelScope.launch {
@@ -47,16 +52,8 @@ class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: 
     }
 
 
-
-
-
-
     /*private val _currentUserDecisionLiveData = MutableLiveData<VoteRecordDto?>()
     val currentUserDecisionLiveData: MutableLiveData<VoteRecordDto?> = _currentUserDecisionLiveData*/
-
-
-
-
 
 
     fun getVoteByCode(code: Int) {
@@ -66,7 +63,7 @@ class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: 
         }
     }
 
-    fun getVotRecords(code:Long){
+    fun getVotRecords(code: Long) {
         viewModelScope.launch {
             val result = voteRecordRepository.getVoteRecords(code)
             _voteRecordsLiveDate.postValue(result)
@@ -74,29 +71,37 @@ class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: 
         }
 
     }
-    private fun updateCounts(voteData :List<VoteRecordDto>?){
+
+    private fun updateCounts(voteData: List<VoteRecordDto>?) {
         var agreed = 0
         var disagreed = 0
         var neutral = 0
         var total = 0
-        voteData?.forEach {
-            data->
-            when(data.decision){
+        voteData?.forEach { data ->
+            when (data.decision) {
                 "موافق" -> agreed++
                 "رافض" -> disagreed++
                 else -> neutral++
             }
         }
-        total = agreed+disagreed+neutral
+        total = agreed + disagreed + neutral
         _agreedCountLiveData.postValue(agreed)
         _disagreedCountLiveData.postValue(disagreed)
         _neutralCountLiveData.postValue(neutral)
         _totalCountLiveData.postValue(total)
     }
-    fun getAllVotes(){
+
+    fun getAllVotes() {
         viewModelScope.launch {
             val results = voteRecordRepository.getAllVotes()
             _allVotesLiveData.postValue(results)
+        }
+    }
+
+    fun getRecentVote() {
+        viewModelScope.launch {
+            val results = voteRecordRepository.getRecentVotes()
+            _recentVotesLiveData.postValue(results)
         }
     }
 
@@ -109,7 +114,6 @@ class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: 
             }
         }
     }*/
-
 
 
 }

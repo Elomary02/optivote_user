@@ -8,6 +8,7 @@ import com.example.optivote.model.decisionToSend
 import io.github.jan.supabase.gotrue.Auth
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.query.Columns
+import io.github.jan.supabase.postgrest.query.Order
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -53,6 +54,24 @@ class VoteRecordRepositoryImp @Inject constructor(private val auth: Auth, privat
             null
         }
     }
+    override suspend fun getRecentVotes(): List<VoteDto>? {
+        return try {
+            withContext(Dispatchers.IO){
+                val recentVotes = postgrest.from("vote").select(Columns.raw("code, title, date,statut,content")){
+                    filter {
+                        eq("statut","done")
+                    }
+                    order("idVote", order = Order.DESCENDING)
+                    limit(3)
+                }.decodeList<VoteDto>()
+                recentVotes
+            }
+        }catch (e:Exception){
+            null
+        }
+    }
+
+
     override suspend fun submitVote(voteRecord: decisionToSend): Boolean {
         return try {
             withContext(Dispatchers.IO) {
@@ -64,6 +83,8 @@ class VoteRecordRepositoryImp @Inject constructor(private val auth: Auth, privat
             throw e
         }
     }
+
+
     }
 
 

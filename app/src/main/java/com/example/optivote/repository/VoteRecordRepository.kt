@@ -10,5 +10,6 @@ interface VoteRecordRepository {
     suspend fun getVoteRecords(voteCode:Long):List<VoteRecordDto>?
     suspend fun submitVote(vote: decisionToSend): Boolean
     suspend fun getAllVotes():List<VoteDto>?
+    suspend fun getRecentVotes():List<VoteDto>?
 
 }

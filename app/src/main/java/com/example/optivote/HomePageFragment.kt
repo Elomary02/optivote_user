@@ -13,7 +13,10 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.optivote.ViewModel.VoteRecordViewModel
+import com.example.optivote.adapters.RecentVotesAdapter
 import com.example.optivote.databinding.FragmentHomePageBinding
 import com.example.optivote.model.VoteDto
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,8 +25,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomePageFragment : Fragment() {
     private var _binding: FragmentHomePageBinding? = null
-    private val binding get() = _binding!!
+
     private val voteRecordViewModel: VoteRecordViewModel by viewModels()
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,12 +35,23 @@ class HomePageFragment : Fragment() {
     ): View? {
         _binding = FragmentHomePageBinding.inflate(inflater, container, false)
         val view = binding.root
+        var recentVotesRecyclerView : RecyclerView = binding.recentVotesRecyclerView
+        var adapter : RecentVotesAdapter = RecentVotesAdapter(findNavController())
+        recentVotesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recentVotesRecyclerView.adapter = adapter
 
 
         val joinBtn = binding.button
         joinBtn.setOnClickListener {
             proceedToVote()
         }
+
+        voteRecordViewModel.recentVotesLiveData.observe(viewLifecycleOwner){
+            recentVotesData-> adapter.submitList(recentVotesData)
+
+            Log.d("recentVotes","$recentVotesData")
+        }
+        voteRecordViewModel.getRecentVote()
 
         return view
     }
