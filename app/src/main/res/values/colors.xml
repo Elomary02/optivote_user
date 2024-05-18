@@ -9,5 +9,7 @@
     <color name="grey">#808080</color>
     <color name="transparent">#00808080</color>
     <color name="light_beige">#e6e3d5</color>
+    <color name="greyTransparent">#BF808080</color>
+
 
 </resources>

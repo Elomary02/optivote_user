@@ -1,10 +1,14 @@
 package com.example.optivote.adapters
 
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.optivote.R
 import com.example.optivote.model.VoteDto
@@ -12,7 +16,7 @@ import com.example.optivote.model.VoteRecordDto
 import com.google.android.material.imageview.ShapeableImageView
 import com.squareup.picasso.Picasso
 
-class VoteHistoryAdapter : RecyclerView.Adapter<VoteHistoryAdapter.VoteViewHolder>() {
+class VoteHistoryAdapter(private val navController: NavController) : RecyclerView.Adapter<VoteHistoryAdapter.VoteViewHolder>() {
     private var allVotes: List<VoteDto?>? = emptyList()
 
 
@@ -50,10 +54,16 @@ class VoteHistoryAdapter : RecyclerView.Adapter<VoteHistoryAdapter.VoteViewHolde
         fun bind(voteDto: VoteDto) {
                 titleTxtView.text = voteDto.title
                 dateTextView.text = voteDto.date.toString()
-                if(voteDto.status == "done"){
+                if(voteDto.statut == "done"){
                     detailsBtn.text = "تفاصيل"
+                    detailsBtn.setOnClickListener {
+                        val fragmentId = R.id.historyDetails
+                        navController.navigate(fragmentId, Bundle().apply {
+                            putSerializable("clickedVote", allVotes?.get(adapterPosition))
+                        })
+                }
                 }else{
-                    detailsBtn.text = "قيد التنفيذ"
+                    detailsBtn.text = "جاري"
                 }
 
         }

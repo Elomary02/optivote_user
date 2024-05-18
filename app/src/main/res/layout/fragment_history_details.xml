@@ -17,6 +17,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <View
+                android:layout_marginTop="8dp"
+                android:layout_width="150dp"
+                android:layout_height="10dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="@color/greyTransparent"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/OthersRV"
@@ -111,17 +118,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/ic_wave"
+            app:layout_constraintBottom_toTopOf="@+id/textViewsHolder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/logo_chambre" />
+        </RelativeLayout>
+
         <LinearLayout
             android:id="@+id/textViewsHolder"
             android:layout_width="625dp"
             android:layout_height="342dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="168dp"
             android:background="@drawable/loginedittextitems"
             android:elevation="15dp"
             android:orientation="vertical"
             android:translationZ="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -158,7 +184,6 @@
 
 
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="wrap_content"

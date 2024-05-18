@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.optivote.model.UserDto
 import com.example.optivote.model.VoteDto
 import com.example.optivote.model.VoteRecordDto
+import com.example.optivote.model.decisionToSend
 import io.github.jan.supabase.gotrue.Auth
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.query.Columns
@@ -27,7 +28,7 @@ class VoteRecordRepositoryImp @Inject constructor(private val auth: Auth, privat
         }
     }
 
-    override suspend fun getVoteRecords(voteCode:Int): List<VoteRecordDto>? {
+    override suspend fun getVoteRecords(voteCode:Long): List<VoteRecordDto>? {
         return try {
             withContext(Dispatchers.IO){
                 val voteRecords = postgrest.from("decision").select(Columns.raw("idDecision, decision, vote!inner(code),user(id,name,image)")){
@@ -45,15 +46,13 @@ class VoteRecordRepositoryImp @Inject constructor(private val auth: Auth, privat
     override suspend fun getAllVotes(): List<VoteDto>? {
         return try {
             withContext(Dispatchers.IO){
-                val allVotes = postgrest.from("vote").select(Columns.raw("code, title, date,status")).decodeList<VoteDto>()
+                val allVotes = postgrest.from("vote").select(Columns.raw("code, title, date,statut,content")).decodeList<VoteDto>()
                 allVotes
             }
         }catch (e:Exception){
             null
         }
     }
-    }
-
     override suspend fun submitVote(voteRecord: decisionToSend): Boolean {
         return try {
             withContext(Dispatchers.IO) {
@@ -65,5 +64,7 @@ class VoteRecordRepositoryImp @Inject constructor(private val auth: Auth, privat
             throw e
         }
     }
+    }
 
-}
+
+

@@ -1,6 +1,7 @@
 package com.example.optivote
 
 
+import android.os.Build
 import android.os.Bundle
 import android.text.Layout.Directions
 import android.util.Log
@@ -30,6 +31,7 @@ class HomePageFragment : Fragment() {
     ): View? {
         _binding = FragmentHomePageBinding.inflate(inflater, container, false)
         val view = binding.root
+
 
         val joinBtn = binding.button
         joinBtn.setOnClickListener {

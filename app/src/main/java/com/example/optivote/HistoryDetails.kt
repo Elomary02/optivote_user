@@ -14,6 +14,7 @@ import com.example.optivote.ViewModel.VoteRecordViewModel
 import com.example.optivote.adapters.HistoryDetailsAdapter
 import com.example.optivote.databinding.FragmentHistoryDetailsBinding
 import com.example.optivote.model.UserInInfo
+import com.example.optivote.model.VoteDto
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
 import com.squareup.picasso.Picasso
@@ -39,14 +40,12 @@ class HistoryDetails : Fragment() {
             this.state = STATE_COLLAPSED
         }
         binding.sheets.elevation = resources.getDimension(R.dimen.bottom_sheet_elevation)
-        voteRecordViewModel.voteLiveDate.observe(viewLifecycleOwner) { voteData ->
-            binding.voteTitle.text = voteData?.title
-            binding.voteContent.text = voteData?.content
 
-        }
-        voteRecordViewModel.getVoteByCode(123456)
+        val voteByCode = arguments?.getSerializable("clickedVote") as VoteDto
+        Log.d("idVote","$voteByCode")
 
-
+            binding.voteTitle.text = voteByCode.title
+            binding.voteContent.text = voteByCode.content
 
         voteRecordViewModel.agreedCountLiveData.observe(viewLifecycleOwner) { count ->
             Log.d("agreed", "$count")
@@ -72,8 +71,8 @@ class HistoryDetails : Fragment() {
         }
 
 
-        var recyclerView : RecyclerView = binding.OthersRV
-        var adapter : HistoryDetailsAdapter = HistoryDetailsAdapter()
+        val recyclerView : RecyclerView = binding.OthersRV
+        val adapter : HistoryDetailsAdapter = HistoryDetailsAdapter()
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
@@ -94,7 +93,7 @@ class HistoryDetails : Fragment() {
 
             adapter.submitList(filteredList)
         }
-        voteRecordViewModel.getVotRecords(123456)
+        voteByCode.code?.let { voteRecordViewModel.getVotRecords(it) }
 
 
 

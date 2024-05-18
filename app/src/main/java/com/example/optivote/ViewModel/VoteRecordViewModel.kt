@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.optivote.model.VoteDto
 import com.example.optivote.model.VoteRecordDto
+import com.example.optivote.model.decisionToSend
 import com.example.optivote.repository.VoteRecordRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -31,6 +32,9 @@ class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: 
     private val _totalCountLiveData = MutableLiveData<Int>()
     val totalCountLiveData: LiveData<Int> = _totalCountLiveData
 
+    private val _allVotesLiveData = MutableLiveData<List<VoteDto?>?>()
+    val allVotesLiveData : MutableLiveData<List<VoteDto?>?> = _allVotesLiveData
+
     fun submitVote(decision: String, user: Int, vote: Long) {
         viewModelScope.launch {
             val voteRecord = decisionToSend(
@@ -45,8 +49,7 @@ class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: 
 
 
 
-    private val _allVotesLiveData = MutableLiveData<List<VoteDto?>?>()
-    val allVotesLiveData : MutableLiveData<List<VoteDto?>?> = _allVotesLiveData
+
 
     /*private val _currentUserDecisionLiveData = MutableLiveData<VoteRecordDto?>()
     val currentUserDecisionLiveData: MutableLiveData<VoteRecordDto?> = _currentUserDecisionLiveData*/
@@ -63,7 +66,7 @@ class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: 
         }
     }
 
-    fun getVotRecords(code:Int){
+    fun getVotRecords(code:Long){
         viewModelScope.launch {
             val result = voteRecordRepository.getVoteRecords(code)
             _voteRecordsLiveDate.postValue(result)

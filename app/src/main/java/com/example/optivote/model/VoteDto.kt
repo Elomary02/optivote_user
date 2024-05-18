@@ -13,7 +13,7 @@ data class VoteDto(
     val startTime: LocalTime? = null,
     val endTime: LocalTime? = null,
     val totalTime: Long? = null,
-    val status: String? = null,
+    val statut: String? = null,
     val sessionIdFk: Long? = null,
     val title: String? = null
 ) : java.io.Serializable

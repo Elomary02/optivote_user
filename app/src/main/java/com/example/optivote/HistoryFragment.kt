@@ -1,11 +1,13 @@
 package com.example.optivote
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.optivote.ViewModel.VoteRecordViewModel
@@ -31,12 +33,14 @@ class HistoryFragment : Fragment() {
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
         val view = binding.root
         var recyclerView : RecyclerView = binding.recycleView
-        var adapter : VoteHistoryAdapter = VoteHistoryAdapter()
+        var adapter : VoteHistoryAdapter = VoteHistoryAdapter(findNavController())
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
         voteRecordViewModel.allVotesLiveData.observe(viewLifecycleOwner){
+
             allVote -> adapter.submitList(allVote)
+            Log.d("all vote","$allVote")
         }
         voteRecordViewModel.getAllVotes()
 
