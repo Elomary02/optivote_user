@@ -1,7 +1,5 @@
 package com.example.optivote.repository
 
-import android.util.Log
-import com.example.optivote.model.UserDto
 import com.example.optivote.model.VoteDto
 import com.example.optivote.model.VoteRecordDto
 import com.example.optivote.model.decisionToSend
@@ -65,6 +63,23 @@ class VoteRecordRepositoryImp @Inject constructor(private val auth: Auth, privat
                     limit(3)
                 }.decodeList<VoteDto>()
                 recentVotes
+            }
+        }catch (e:Exception){
+            null
+        }
+    }
+
+    override suspend fun checkUserDecision(voteCode: Int, userId: Long): List<VoteRecordDto>? {
+        return try {
+            withContext(Dispatchers.IO){
+                val voteRecords = postgrest.from("decision").select(Columns.raw("idDecision, decision, vote!inner(code),user!inner(id)")){
+                    filter {
+                                eq("user.id",userId)
+                                eq("vote.code",voteCode)
+                    }
+                }
+                .decodeList<VoteRecordDto>()
+                voteRecords
             }
         }catch (e:Exception){
             null

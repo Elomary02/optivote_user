@@ -40,7 +40,10 @@ class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: 
     private val _recentVotesLiveData = MutableLiveData<List<VoteDto?>?>()
     val recentVotesLiveData: MutableLiveData<List<VoteDto?>?> = _recentVotesLiveData
 
-    fun submitVote(decision: String, user: Int, vote: Long) {
+    private val _checkUserDecisionLiveDate = MutableLiveData<List<VoteRecordDto?>?>()
+    val checkUserDecisionLiveDate: MutableLiveData<List<VoteRecordDto?>?> = _checkUserDecisionLiveDate
+
+    fun submitVote(decision: String, user: Long, vote: Long) {
         viewModelScope.launch {
             val voteRecord = decisionToSend(
                 decision = decision,
@@ -102,6 +105,12 @@ class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: 
         viewModelScope.launch {
             val results = voteRecordRepository.getRecentVotes()
             _recentVotesLiveData.postValue(results)
+        }
+    }
+    fun checkUserDecision(voteCode: Int, userId: Long){
+        viewModelScope.launch {
+            val result = voteRecordRepository.checkUserDecision(voteCode,userId)
+            _checkUserDecisionLiveDate.postValue(result)
         }
     }
 

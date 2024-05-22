@@ -1,7 +1,7 @@
 package com.example.optivote.model
 
 object UserInInfo{
-     var id : Int = 0
+     var id : Long = 0
      var name:String=""
      var email:String=""
      var phone:String=""
