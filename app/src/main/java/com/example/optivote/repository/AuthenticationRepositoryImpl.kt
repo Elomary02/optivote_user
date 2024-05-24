@@ -33,5 +33,18 @@ class AuthenticationRepositoryImpl @Inject constructor(private val auth:Auth) : 
         }
     }
 
+    override suspend fun updatePassword(password: String): Boolean {
+        return try {
+            auth.updateUser {
+                this.password = password
+            }
+            Log.d("updated", "updated password successfully")
+            true
+        } catch (e: Exception) {
+            Log.d("updatePasswordError", "Update password failed", e)
+            false
+        }
+    }
+
 
 }

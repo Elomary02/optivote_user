@@ -8,4 +8,5 @@ interface AuthenticationRepository {
     suspend fun getCurrentUserEmail():String
     //logout function
     suspend fun logout(): Boolean
+    suspend fun updatePassword(password: String): Boolean
 }

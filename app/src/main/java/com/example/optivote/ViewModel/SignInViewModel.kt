@@ -55,4 +55,10 @@ class SignInViewModel @Inject constructor( private val authenticationRepository:
         }
     }
 
+    fun updatePassword(password: String) {
+        viewModelScope.launch {
+            authenticationRepository.updatePassword(password)
+        }
+    }
+
 }
