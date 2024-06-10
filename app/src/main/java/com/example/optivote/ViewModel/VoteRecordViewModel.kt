@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.optivote.model.SessionDto
 import com.example.optivote.model.VoteDto
 import com.example.optivote.model.VoteRecordDto
 import com.example.optivote.model.decisionToSend
@@ -39,6 +40,15 @@ class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: 
 
     private val _recentVotesLiveData = MutableLiveData<List<VoteDto?>?>()
     val recentVotesLiveData: MutableLiveData<List<VoteDto?>?> = _recentVotesLiveData
+
+    private val _votesBySessionIdLiveData = MutableLiveData<List<VoteDto>?>()
+    val votesBySessionIdLiveData: LiveData<List<VoteDto>?> = _votesBySessionIdLiveData
+
+    private val _recentSessionLiveData = MutableLiveData<List<SessionDto>?>()
+    val recentSessionLiveData: LiveData<List<SessionDto>?> = _recentSessionLiveData
+
+    private val _upcomingSessionLiveData = MutableLiveData<List<SessionDto>?>()
+    val upcomingSessionLiveData: LiveData<List<SessionDto>?> = _upcomingSessionLiveData
 
     fun submitVote(decision: String, user: Int, vote: Long) {
         viewModelScope.launch {
@@ -102,6 +112,27 @@ class VoteRecordViewModel @Inject constructor(private val voteRecordRepository: 
         viewModelScope.launch {
             val results = voteRecordRepository.getRecentVotes()
             _recentVotesLiveData.postValue(results)
+        }
+    }
+
+    fun getVotesBySessionId(sessionId: Int?) {
+        viewModelScope.launch {
+            val results = sessionId?.let { voteRecordRepository.getVotesBySessionId(it) }
+            _votesBySessionIdLiveData.postValue(results)
+        }
+    }
+
+    fun getRecentSessions() {
+        viewModelScope.launch {
+            val results = voteRecordRepository.getRecentSessions()
+            _recentSessionLiveData.postValue(results)
+        }
+    }
+
+    fun getUpcomingSessions() {
+        viewModelScope.launch {
+            val results = voteRecordRepository.getUpcomingSessions()
+            _upcomingSessionLiveData.postValue(results)
         }
     }
 

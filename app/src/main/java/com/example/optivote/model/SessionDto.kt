@@ -4,8 +4,7 @@ import kotlinx.datetime.LocalDate
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SessionDto(val sessionId: Int,
-                      val sessionNumber: Int,
+data class SessionDto(val idSession: Int,
                       val year: LocalDate,
-                      val startDate: LocalDate,
-                      val endDate: LocalDate)
+                      val number: Int,
+                      val status: String):java.io.Serializable

@@ -33,17 +33,17 @@ class HistoryFragment : Fragment() {
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
         val view = binding.root
         var recyclerView : RecyclerView = binding.recycleView
-        var adapter : VoteHistoryAdapter = VoteHistoryAdapter(findNavController())
+        var adapter = VoteHistoryAdapter(findNavController())
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
+        val sessionId = arguments?.getInt("sessionId")
 
-        voteRecordViewModel.allVotesLiveData.observe(viewLifecycleOwner){
+        voteRecordViewModel.votesBySessionIdLiveData.observe(viewLifecycleOwner){
 
             allVote -> adapter.submitList(allVote)
             Log.d("all vote","$allVote")
         }
-        voteRecordViewModel.getAllVotes()
-
+        voteRecordViewModel.getVotesBySessionId(sessionId)
 
         return view
 
