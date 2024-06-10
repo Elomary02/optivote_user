@@ -4,9 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
+import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -69,8 +74,8 @@ class LoginActivity : AppCompatActivity() {
                                     UserInInfo.signInId = userIn.signInId.toString()
                                     UserInInfo.image = userIn.image.toString()
                                     Log.d("userInName","${UserInInfo.name}")
-                                    val intent = Intent(this@LoginActivity,MainActivity::class.java)
-                                    startActivity(intent)
+                                    showSuccessDialog()
+
                                 }
                             })
 
@@ -80,7 +85,7 @@ class LoginActivity : AppCompatActivity() {
 
 
                         }else{
-                            Log.d("LoginActivity", "Sign-in failed")
+                            showFailureDialog()
                         }
                     }
                     is SignInViewModel.SignInState.Error->{
@@ -95,6 +100,74 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+    private  fun showSuccessDialog(){
+        val inflater = LayoutInflater.from(this)
+        val dialogView = inflater.inflate(R.layout.success_dialog, null)
+
+
+        val builder = AlertDialog.Builder(this)
+        builder.setView(dialogView)
+
+
+        val alertDialog = builder.create()
+
+        val widthInDp = 500
+        val heightInDp = 220
+
+        val widthInPx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, widthInDp.toFloat(), resources.displayMetrics).toInt()
+        val heightInPx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, heightInDp.toFloat(), resources.displayMetrics).toInt()
+
+        alertDialog.window?.setLayout(widthInPx, heightInPx)
+
+
+        alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        alertDialog.window?.decorView?.postDelayed({
+            alertDialog.dismiss()
+            redirectToNextActivity()
+        }, 10000)
+        alertDialog.show()
+
+
+    }
+    private  fun showFailureDialog(){
+        val inflater = LayoutInflater.from(this)
+        val dialogView = inflater.inflate(R.layout.failed_dialog, null)
+
+
+        val builder = AlertDialog.Builder(this)
+        builder.setView(dialogView)
+
+
+        val alertDialog = builder.create()
+
+        val widthInDp = 500
+        val heightInDp = 220
+
+        val widthInPx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, widthInDp.toFloat(), resources.displayMetrics).toInt()
+        val heightInPx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, heightInDp.toFloat(), resources.displayMetrics).toInt()
+
+        alertDialog.window?.setLayout(widthInPx, heightInPx)
+
+        alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        val closeBtn = dialogView.findViewById<Button>(R.id.dialogCloseBtn)
+        closeBtn.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+
+
+        alertDialog.show()
+
+
+
+
+    }
+    private fun redirectToNextActivity() {
+        val intent = Intent(this@LoginActivity,MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
 }

@@ -54,6 +54,7 @@ class VoteHistoryAdapter(private val navController: NavController) : RecyclerVie
         fun bind(voteDto: VoteDto) {
                 titleTxtView.text = voteDto.title
                 dateTextView.text = voteDto.date.toString()
+
                 if(voteDto.statut == "done"){
                     detailsBtn.text = "تفاصيل"
                     detailsBtn.setOnClickListener {
