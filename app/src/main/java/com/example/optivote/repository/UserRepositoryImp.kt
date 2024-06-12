@@ -18,4 +18,20 @@ class UserRepositoryImp @Inject constructor(private val auth:Auth ,private val p
             }.decodeSingle<UserDto>()
         }
     }
+
+    override suspend fun updateAlreadySignedInState(id: Long, email: String): Boolean {
+        return try {
+            postgrest.from("user").update({set("alreadySignedIn",true)}){
+                filter {
+                    eq("id",id)
+                    eq("email",email)
+                }
+            }
+            true
+        }catch (e:Exception){
+            false
+        }
+    }
+
+
 }

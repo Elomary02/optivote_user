@@ -23,6 +23,7 @@
             android:layout_height="940dp"
             android:layout_marginTop="336dp"
             android:background="@drawable/info_shape"
+            android:padding="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -35,7 +36,7 @@
                 android:gravity="center"
                 android:text="المعلومات الشخصية :"
                 android:textDirection="rtl"
-                android:textSize="55sp"
+                android:textSize="40sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +57,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView5"
-                app:layout_constraintVertical_bias="0.113">
+                app:layout_constraintVertical_bias="0.19">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -64,13 +65,13 @@
                     android:layout_marginBottom="55dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="50dp">
+                    android:paddingHorizontal="55dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="الاسم الشخصي:"
-                        android:textSize="45sp"
+                        android:text="الاسم الكامل:"
+                        android:textSize="35sp"
                         android:textStyle="bold" />
 
 
@@ -79,7 +80,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:textSize="45sp"
+                        android:textSize="35sp"
                         android:textStyle="normal"
                         tools:text="رشيد العلوي" />
 
@@ -91,13 +92,13 @@
                     android:layout_marginBottom="55dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="50dp">
+                    android:paddingHorizontal="55dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="البريد الالكتروني:"
-                        android:textSize="45sp"
+                        android:textSize="35sp"
                         android:textStyle="bold" />
 
 
@@ -106,7 +107,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:textSize="30sp"
+                        android:textSize="35sp"
                         android:textStyle="normal"
                         tools:text="example@example.com" />
 
@@ -118,13 +119,13 @@
                     android:layout_marginBottom="55dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="50dp">
+                    android:paddingHorizontal="55dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="رقم الهاتف:"
-                        android:textSize="45sp"
+                        android:textSize="35sp"
                         android:textStyle="bold" />
 
 
@@ -133,38 +134,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:textSize="40sp"
+                        android:textSize="35sp"
                         android:textStyle="normal"
                         tools:text="+212********" />
 
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="50dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="50dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="كلمة السر:"
-                        android:textSize="45sp"
-                        android:textStyle="bold" />
-
-
-                    <TextView
-                        android:id="@+id/passwordTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:textSize="40sp"
-                        android:textStyle="normal"
-                        tools:text="********aa" />
-
-                </RelativeLayout>
 
                 <Button
                     android:layout_width="wrap_content"
@@ -178,7 +153,6 @@
 
 
             </LinearLayout>
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

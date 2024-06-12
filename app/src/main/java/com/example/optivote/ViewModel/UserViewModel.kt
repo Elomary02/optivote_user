@@ -20,4 +20,9 @@ class UserViewModel @Inject constructor(private val userRepository: UserReposito
             _userInfoLiveDate.postValue(result)
         }
     }
+    fun updateAlreadySignedInState(id:Long,email:String){
+        viewModelScope.launch {
+            userRepository.updateAlreadySignedInState(id,email)
+        }
+    }
 }

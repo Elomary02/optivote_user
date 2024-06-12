@@ -1,8 +1,6 @@
 package com.example.optivote.repository
 
-import android.util.Log
 import com.example.optivote.model.SessionDto
-import com.example.optivote.model.UserDto
 import com.example.optivote.model.VoteDto
 import com.example.optivote.model.VoteRecordDto
 import com.example.optivote.model.decisionToSend
@@ -45,11 +43,20 @@ class VoteRecordRepositoryImp @Inject constructor(private val auth: Auth, privat
         }
     }
 
-    override suspend fun getAllVotes(): List<VoteDto>? {
+
+
+
+    override suspend fun checkUserDecision(voteCode: Int, userId: Long): List<VoteRecordDto>? {
         return try {
             withContext(Dispatchers.IO){
-                val allVotes = postgrest.from("vote").select(Columns.raw("code, title, date,statut,content")).decodeList<VoteDto>()
-                allVotes
+                val voteRecords = postgrest.from("decision").select(Columns.raw("idDecision, decision, vote!inner(code),user!inner(id)")){
+                    filter {
+                                eq("user.id",userId)
+                                eq("vote.code",voteCode)
+                    }
+                }
+                .decodeList<VoteRecordDto>()
+                voteRecords
             }
         }catch (e:Exception){
             null
@@ -71,22 +78,30 @@ class VoteRecordRepositoryImp @Inject constructor(private val auth: Auth, privat
             null
         }
     }
-
+    override suspend fun getAllVotes(): List<VoteDto>? {
+        return try {
+            withContext(Dispatchers.IO){
+                val allVotes = postgrest.from("vote").select(Columns.raw("code, title, date,statut,content")).decodeList<VoteDto>()
+                allVotes
+            }
+        }catch (e:Exception){
+            null
+        }
+    }
     override suspend fun getVotesBySessionId(idSession: Int): List<VoteDto>? {
         return try {
             withContext(Dispatchers.IO) {
-                postgrest.from("vote").select(Columns.raw("content, date, statut, sessionIdFk, title")) {
+               val voteBySession =  postgrest.from("vote").select(Columns.raw("content, date, statut, sessionIdFk, title, code")) {
                     filter {
                         eq("sessionIdFk", idSession)
                     }
-                }
-                .decodeList<VoteDto>()
+                }.decodeList<VoteDto>()
+                voteBySession
             }
         } catch (e: Exception) {
             null
         }
     }
-
     override suspend fun getRecentSessions(): List<SessionDto>? {
         return try {
             withContext(Dispatchers.IO) {
@@ -108,11 +123,11 @@ class VoteRecordRepositoryImp @Inject constructor(private val auth: Auth, privat
         return try {
             withContext(Dispatchers.IO) {
                 val upcomingSessions = postgrest.from("session").select(Columns.raw("idSession, year, number, status")) {
-                        filter {
-                            eq("status", "not started")
-                        }
-                        order("idSession", order = Order.ASCENDING)
-                    }.decodeList<SessionDto>()
+                    filter {
+                        eq("status", "not started")
+                    }
+                    order("idSession", order = Order.ASCENDING)
+                }.decodeList<SessionDto>()
                 upcomingSessions
             }
         } catch (e: Exception) {
@@ -134,7 +149,7 @@ class VoteRecordRepositoryImp @Inject constructor(private val auth: Auth, privat
     }
 
 
-}
+    }
 
 
 

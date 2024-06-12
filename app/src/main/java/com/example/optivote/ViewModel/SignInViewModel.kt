@@ -54,10 +54,13 @@ class SignInViewModel @Inject constructor( private val authenticationRepository:
             }
         }
     }
+    private val _updatePasswordResult = MutableStateFlow<Boolean?>(null)
+    val updatePasswordResult: StateFlow<Boolean?> get() = _updatePasswordResult
 
     fun updatePassword(password: String) {
         viewModelScope.launch {
-            authenticationRepository.updatePassword(password)
+            val result = authenticationRepository.updatePassword(password)
+            _updatePasswordResult.value = result
         }
     }
 

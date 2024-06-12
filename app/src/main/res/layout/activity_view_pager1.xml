@@ -10,7 +10,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/myBottomVav"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
         android:layoutDirection="rtl"
@@ -18,7 +18,9 @@
         app:itemActiveIndicatorStyle="@color/transparent"
         app:itemTextColor="@color/color_selctor"
         app:itemIconTint="@color/color_selctor"
-
+        app:itemIconSize="40dp"
+        app:itemTextAppearanceActive="@style/CustomBottomNavigationTextAppearance"
+        app:itemTextAppearanceInactive="@style/CustomBottomNavigationTextAppearance"
         app:menu="@menu/bottom_menu"/>
 
     <fragment

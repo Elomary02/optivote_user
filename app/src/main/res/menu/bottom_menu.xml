@@ -6,11 +6,11 @@
         android:icon="@drawable/dashboard"
         android:title="الرئيسية" />
     <item
-        android:id="@+id/voteFragment"
-        android:icon="@drawable/vote"
-        android:title="التصويت" />
+        android:id="@+id/upcomingSessionFragment"
+        android:icon="@drawable/calendar_time"
+        android:title="القادمة" />
     <item
-        android:id="@+id/historyFragment"
+        android:id="@+id/votesHistoryFragment"
         android:icon="@drawable/history"
         android:title="الارشيف" />
     <item

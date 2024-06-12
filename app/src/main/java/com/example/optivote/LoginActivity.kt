@@ -74,7 +74,7 @@ class LoginActivity : AppCompatActivity() {
                                     UserInInfo.signInId = userIn.signInId.toString()
                                     UserInInfo.image = userIn.image.toString()
                                     Log.d("userInName","${UserInInfo.name}")
-                                    showSuccessDialog()
+                                    showSuccessDialog(userIn.alreadySignedIn)
 
                                 }
                             })
@@ -101,7 +101,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-    private  fun showSuccessDialog(){
+    private  fun showSuccessDialog(alreadySignedIn : Boolean?){
         val inflater = LayoutInflater.from(this)
         val dialogView = inflater.inflate(R.layout.success_dialog, null)
 
@@ -124,8 +124,13 @@ class LoginActivity : AppCompatActivity() {
         alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         alertDialog.window?.decorView?.postDelayed({
             alertDialog.dismiss()
-            redirectToNextActivity()
-        }, 10000)
+            if(alreadySignedIn == true){
+                redirectToNextActivity()
+            }else{
+                redirectToNextActivityChangePass()
+            }
+
+        }, 2000)
         alertDialog.show()
 
 
@@ -166,6 +171,11 @@ class LoginActivity : AppCompatActivity() {
     }
     private fun redirectToNextActivity() {
         val intent = Intent(this@LoginActivity,MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+    private fun redirectToNextActivityChangePass() {
+        val intent = Intent(this@LoginActivity,ChangePassActivty::class.java)
         startActivity(intent)
         finish()
     }
