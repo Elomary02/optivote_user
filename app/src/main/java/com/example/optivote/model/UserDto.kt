@@ -9,5 +9,6 @@ data class UserDto (val id : Long? = null,
                val phone:String? = null,
                val password:String? = null,
                val image:String? = null,
-               val signInId:String? = null
+               val signInId:String? = null,
+                val alreadySignedIn:Boolean? = null
 )
